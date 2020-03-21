@@ -4,17 +4,22 @@
  */
 class PagesController extends Controller
 {
-	/*
-	function view($nom){
-		$this->set(array(
-			'phrase' => 'Salut',
-			'nom' => 'Pygamoss'
+	
+	function view($id){
+		$this->loadModel('Post');
+		$d['page'] = $this->Post->findFirst(
+			array(
+				'conditions' => array('id' => $id, 'type' => 'page')
+			)
+		);
+		if (empty($d['page'])) {
+			$this->e404('Page introuvable');
+		}		
+
+		$d['pages'] = $this->Post->find(array(
+			'conditions' => array('type' => 'page')
 		));
-		$this->render('index');
-	}
-	*/
-	function index(){
-		$this->render('index');
+		$this->set($d);
 	}
 }
 ?>

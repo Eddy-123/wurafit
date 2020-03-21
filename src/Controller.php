@@ -39,5 +39,27 @@ class Controller
 		}
 		
 	}
+
+	/**
+	 * Permet de charger un model
+	 */
+	function loadModel($name){
+		$file = ROOT.DS.'model'.DS.$name.'.php';
+		require_once($file);
+		if (!isset($this->$name)) {
+			$this->$name = new $name();
+		}
+
+	}
+
+	/**
+	 * Permet de gérer les erreurs 404
+	 */
+	function e404($message){
+		header("HTTP/1.0 404 Not Found");
+		$this->set('message', $message);
+		$this->render('/errors/404');
+		die();
+	}
 }
 ?>

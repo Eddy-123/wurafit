@@ -21,11 +21,15 @@
           <!--<li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>-->
-          <?php foreach ($pages as $page) { ?>
+          <?php $pagesMenu = $this->request('Pages', 'getMenu'); ?>
+          <?php foreach ($pagesMenu as $p) { ?>
             <li class="nav-item">
-              <a class="nav-link" href="<?= BASE_URL.'/pages/view/'.$page->id ?>"><?= $page->name ?></a>
+              <a class="nav-link" href="<?= BASE_URL.'/pages/view/'.$p->id ?>"><?= $p->name ?></a>
             </li>
           <?php } ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE_URL.'/posts' ?>">Actualités</a>
+          </li>
         </ul>
       </div>
     </nav>

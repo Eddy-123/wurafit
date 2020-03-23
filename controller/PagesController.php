@@ -9,17 +9,27 @@ class PagesController extends Controller
 		$this->loadModel('Post');
 		$d['page'] = $this->Post->findFirst(
 			array(
-				'conditions' => array('id' => $id, 'type' => 'page')
+				'conditions' => array('online' => 1, 'id' => $id, 'type' => 'page')
 			)
 		);
 		if (empty($d['page'])) {
 			$this->e404('Page introuvable');
 		}		
-
+/*
 		$d['pages'] = $this->Post->find(array(
 			'conditions' => array('type' => 'page')
 		));
-		$this->set($d);
+*/		$this->set($d);
+	}
+
+	/**
+	 * Permet de récupérer les pages pour le menu
+	 */
+	function getMenu(){
+		$this->loadModel('Post');
+		return $this->Post->find(array(
+			'conditions' => array('online' => 1, 'type' => 'page')
+		));
 	}
 }
 ?>

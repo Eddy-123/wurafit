@@ -28,7 +28,7 @@
             </li>
           <?php } ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL.'/posts' ?>">Actualités</a>
+            <a class="nav-link" href="<?= Router::url('posts/index') ?>">Actualités</a><!-- BASE_URL.'/posts' -->
           </li>
         </ul>
       </div>

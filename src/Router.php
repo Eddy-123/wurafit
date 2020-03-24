@@ -15,18 +15,27 @@ class Router
 
 	static function parse($url, $request){
 		$url = trim($url, '/');
+		if (empty($url)) {
+			$url = Router::$routes[0]['url'];
+		}else{			
 
-		foreach (Router::$routes as $value) {			
-			if (preg_match($value['catcher'], $url, $match)) {
-				$request->controller = $value['controller'];
-				$request->action = $value['action'];
-				$request->params = array();
-				foreach ($value['params'] as $key => $value) {
-					$request->params[$key] = $match[$key];
+			foreach (Router::$routes as $value) {			
+				if (preg_match($value['catcher'], $url, $match)) {
+					
+					$request->controller = $value['controller'];
+					$request->action = isset($match['action']) ? $match['action'] : $value['action'];
+					$request->params = array();
+					foreach ($value['params'] as $key => $value) {
+						$request->params[$key] = $match[$key];
+					}
+					if (!empty($match['args'])) {
+						$request->params += explode('/', trim($match['args'], '/'));
+					}
+
+					return $request;
 				}
-				return $request;
+			
 			}
-		
 		}
 
 		$params = explode('/', $url);
@@ -42,10 +51,14 @@ class Router
 	static function connect($redir, $url){
 		$r = array();
 		$r['params'] = array();
-
+		$r['url'] = $url;
 		$r['redir'] = $redir;
-		$r['origin'] = preg_replace('/([a-z0-9]+):([^\/]+)/', '${1}:(?P<${1}>${2})', $url);
-		$r['origin'] = '/'.str_replace('/', '\/', $r['origin']).'/';
+
+
+		$r['origin'] = str_replace(':action', '(?P<action>([a-z0-9]+))', $url);
+
+		$r['origin'] = preg_replace('/([a-z0-9]+):([^\/]+)/', '${1}:(?P<${1}>${2})', $r['origin']);
+		$r['origin'] = '/^'.str_replace('/', '\/', $r['origin']).'(?P<args>\/?.*)$/';
 
 		$params = explode('/', $url);
 		foreach ($params as $key => $value) {
@@ -62,12 +75,13 @@ class Router
 		}
 
 		$r['catcher'] = $redir;
+		$r['catcher'] = str_replace(':action', '(?P<action>([a-z0-9]+))', $r['catcher']);
 		foreach ($r['params'] as $key => $value) {
 			$r['catcher'] = str_replace(":$key", "(?P<$key>$value)", $r['catcher']);
 		}
 
-		$r['catcher'] = '/'.str_replace('/', '\/', $r['catcher']).'/';
-
+		$r['catcher'] = '/^'.str_replace('/', '\/', $r['catcher']).'$/';
+			
 		self::$routes[] = $r;
 		
 	}
@@ -78,14 +92,15 @@ class Router
 	static function url($url){
 		foreach (self::$routes as $value) {
 			if (preg_match($value['origin'], $url, $match)) {
+				
 				foreach ($match as $k => $w) {
 					if (!is_numeric($k)) {
 						$value['redir'] = str_replace(":$k", $w, $value['redir']);
 					}
 				}
-				return $value['redir'];
+				return BASE_URL.str_replace('//', '/', '/'.$value['redir']).$match['args'];
 			}
 		}
-		return $url;
+		return BASE_URL.'/'.$url;
 	}
 }

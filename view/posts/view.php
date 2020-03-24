@@ -1,4 +1,3 @@
-<?php $title_for_layout = $page->name; ?>
-<h1><?= $page->name ?></h1>
-<?= $page->content ?>
-<?php debug($page); ?>
+<?php $title_for_layout = $post->name; ?>
+<h1><?= $post->name ?></h1>
+<?= $post->content ?>

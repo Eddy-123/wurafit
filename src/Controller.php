@@ -13,7 +13,9 @@ class Controller
 	function __construct($request = null){
 		if ($request) {
 			$this->request = $request;
+			require ROOT.DS.'config'.DS.'hook.php';
 		}
+		
 	}
 	
 	public function render($view){
@@ -51,6 +53,9 @@ class Controller
 		require_once($file);
 		if (!isset($this->$name)) {
 			$this->$name = new $name();
+			if (isset($this->Form)) {
+				$this->$name->Form = $this->Form;
+			}
 		}
 
 	}
@@ -74,11 +79,11 @@ class Controller
 		$c = new $controller();
 		return $c->$action();
 	}
-
+ 
 	/**
 	 * Redirect
 	 */
-	function redirect($url, $code){
+	function redirect($url, $code = null){
 		if ($code == 301) {
 			header("HTTP/1.1 301 Moved Permanently");
 		}

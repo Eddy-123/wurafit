@@ -14,8 +14,7 @@
 	new Dispatcher();
 	
 ?>
-	<div style="position: fixed; bottom: 0; background: #CCC; color: #000; line-height: 30px; height: 30px; left: 0; right: 0; padding-left: 10px;">
+	<div style="position: fixed; bottom: 0; background: #CCC; color: #000; line-height: 30px; height: 30px; left: 0; right: 0; padding-left: 10px; display: none;">
 		<?= "Page générée en ".round(microtime(true) - $debut, 5)." secondes"; ?>
 	</div>
 
-?>

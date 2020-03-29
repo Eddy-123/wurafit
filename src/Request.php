@@ -7,6 +7,8 @@ class Request
 {
 	public $url;
 	public $page = 1;
+	public $prefix = false;
+	public $data = false;
 
 	function __construct()
 	{
@@ -19,7 +21,13 @@ class Request
 			}
 			
 		}
+		if (!empty($_POST)) {
+			$this->data = new stdClass();
+			foreach ($_POST as $key => $value) {
+				$this->data->$key = $value;
+			}
+		}
 	}
 }
 
- ?>
+ 

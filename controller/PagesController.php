@@ -15,11 +15,7 @@ class PagesController extends Controller
 		if (empty($d['page'])) {
 			$this->e404('Page introuvable');
 		}		
-/*
-		$d['pages'] = $this->Post->find(array(
-			'conditions' => array('type' => 'page')
-		));
-*/		$this->set($d);
+		$this->set($d);
 	}
 
 	/**

@@ -93,5 +93,12 @@ class PostsController extends Controller
 		$this->redirect('admin/posts/index');
 	}
 
+	function admin_tinymce(){
+		$this->loadModel('Post');
+		$this->layout = 'modal';
+		$d['posts'] = $this->Post->find();
+		$this->set($d);
+	}
+
 }
 ?>

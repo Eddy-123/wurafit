@@ -51,6 +51,16 @@ class Router
 		}
 		$request->controller = $params[0];
 		$request->action = isset($params[1]) ? $params[1] : 'index';
+
+		foreach (self::$prefixes as $key => $value) {
+			if (strpos($request->action, $value.'_') === 0) {
+
+				$request->prefix = $value;
+				$request->action = str_replace($value.'_', '', $request->action);
+				//debug($request);
+			}
+		}
+
 		$request->params = array_slice($params, 2);
 		return true;
 	}
@@ -116,6 +126,11 @@ class Router
 				$url = str_replace($value, $key, $url);
 			}
 		}
-		return BASE_URL.'/'.$url;
+		return str_replace('//', '/', BASE_URL.'/'.$url) ;
+	}
+
+	static function webroot($url){
+		$url = trim($url);
+		return BASE_URL.'/'.$url ;	
 	}
 }

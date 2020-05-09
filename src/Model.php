@@ -48,7 +48,7 @@ class Model
 
 	}
 
-	public function find($req){			
+	public function find($req = array()){			
 		$sql = 'SELECT ';
 		
 		if (isset($req['fields'])) {

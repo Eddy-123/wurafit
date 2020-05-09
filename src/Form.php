@@ -49,6 +49,16 @@ class Form
 					  '</label>
 					</div>';
 			return $html;
+	    }elseif ($options['type'] == 'file') {
+	    	$html = '<label for="input'.$name.'">'.$label.'</label>';
+	    	$html .= '<div class="custom-file">'.'<input type="file" class="custom-file-input" id="input'.$name.'" name="'.$name.'" value="'.$value.'"'.$attr.' ><label class="custom-file-label" for="'.$name.'">Choisir un fichier</label>';
+	    	if ($error) {
+	    	$html .= '<span class="inline '.$classError.'">'.$error.'</span>';
+	    	}
+	    	$html .= '<div/>';
+			return $html;
+	    }elseif ($options['type'] == 'password') {
+	    	$html .= '<input type="password" class="form-control" id="input'.$name.'" name="'.$name.'" value="'.$value.'"'.$attr.'>';
 	    }
 	    if ($error) {
 	    	$html .= '<span class="inline">'.$error.'</span>';

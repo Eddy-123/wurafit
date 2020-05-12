@@ -67,6 +67,9 @@ tinymce.init({
               <a class="nav-link" href="<?= Router::url('admin/posts/index') ?>">Articles</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="<?= Router::url('admin/pages/index') ?>">Pages</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="<?= Router::url('/') ?>">Voir le site</a>
             </li>            
             <li class="nav-item">

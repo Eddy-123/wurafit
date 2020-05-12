@@ -4,6 +4,7 @@
 <?php foreach ($posts as $key => $value) { ?>
 	<h2><?= $value->name ?></h2>	
 	<?= $value->content ?>
+	<?= date_format(date_create($value->created), 'd/m/Y') ?>
 	<p><a href="<?= Router::url("posts/view/id:{$value->id}/slug:$value->slug"); ?>">Lire la suite &rarr;</a></p><!-- BASE_URL.'/posts/view/'.$value->id -->
 
 

@@ -1,7 +1,7 @@
 <?php 
 require 'Session.php';
-require 'Form.php';
 require 'functions.php';
+require 'Form.php';
 require 'Router.php';
 require ROOT.DS.'config'.DS.'conf.php';
 require 'Request.php';

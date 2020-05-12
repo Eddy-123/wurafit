@@ -8,9 +8,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
-    <!--<script type="text/javascript" src="<?= Router::webroot('js/tinymce/tinymce.min.js') ?>"></script>-->
-
     <script src="https://cdn.tiny.cloud/1/o69cgnwxudbil0l7q0dnyiwjeoufx5i2uoyxtjf9pin4ilop/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 
@@ -68,9 +65,6 @@ tinymce.init({
         <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="<?= Router::url('admin/posts/index') ?>">Articles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pages</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?= Router::url('/') ?>">Voir le site</a>

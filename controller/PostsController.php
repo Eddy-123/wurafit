@@ -6,12 +6,13 @@ class PostsController extends Controller
 {
 	
 	function index(){
-		$perPage = 1;
+		$perPage = 10;
 		$this->loadModel('Post');
 		$conditions = array('online' => 1, 'type' => 'post');
 		$d['posts'] = $this->Post->find(array(
 			'conditions' => $conditions,
-			'limit' => ($perPage * ($this->request->page-1)).', '.$perPage
+			'limit' => ($perPage * ($this->request->page-1)).', '.$perPage,
+			'order by' => 'created DESC'
 		));
 		$d['total'] = $this->Post->findCount($conditions);
 		$d['page'] = ceil($d['total'] / $perPage);
@@ -63,7 +64,7 @@ class PostsController extends Controller
 		if ($this->request->data) {
 			if ($this->Post->validates($this->request->data)) {
 				$this->request->data->type = 'post';
-				$this->request->data->created = date('Y-m-d h:i:s');
+				$this->request->data->created = empty($this->request->data->created) ? date('Y-m-d h:i:s') : $this->request->data->created;
 				$this->Post->save($this->request->data);
 				$this->Session->setFlash('Le contenu a bien été modifié');
 				//$id = $this->Post->id;

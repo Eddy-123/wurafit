@@ -11,7 +11,7 @@ class Form
 		$this->controller = $controller;
 	}
 
-	public function input($name, $label, $options = array()){
+	public function input($name, $label, $options = array()){		
 		$error = false;
 		$classError = '';
 		if (isset($this->errors[$name])) {
@@ -59,6 +59,14 @@ class Form
 			return $html;
 	    }elseif ($options['type'] == 'password') {
 	    	$html .= '<input type="password" class="form-control" id="input'.$name.'" name="'.$name.'" value="'.$value.'"'.$attr.'>';
+	    }elseif ($options['type'] == 'date') {
+	    	$html = '<div class="form-group row">
+	    		<label for="input'.$name.'" class="col-2 col-form-label">'.$label.'</label>
+	    		<div class="col-10">
+	    		<input class="form-control" type="date" value="'.$value.'" name="'.$name.'" id="input'.$name.'">
+	    		</div>
+	    		';
+	    		//debug($this->controller->request->data->$name);
 	    }
 	    if ($error) {
 	    	$html .= '<span class="inline">'.$error.'</span>';
@@ -67,4 +75,12 @@ class Form
 	    return $html;
 
 	}
+	/*
+<div class="form-group row">
+  <label for="example-date-input" class="col-2 col-form-label">Date</label>
+  <div class="col-10">
+    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+  </div>
+</div>
+*/
 }

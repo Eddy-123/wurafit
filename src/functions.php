@@ -16,4 +16,12 @@ function debug($var){
 	}
 }
 
+function truncate($text, $limit){
+	$tab = explode(' ', $text, ($limit+1));
+	while(count($tab) > $limit){ 
+		array_pop($tab); 
+	}	
+	return implode(' ', $tab);
+}
+
 ?>

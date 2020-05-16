@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1><?= $total ?> Pages </h1>
+	<h1><?= $total ?> Pages modulables</h1>
 </div>
 
 <table class="table table-striped">
@@ -18,8 +18,8 @@
 				<td><span class="<?= $value->online == 1 ? 'text-success' : 'text-danger' ?>"><?= $value->online == 1 ? 'En ligne' : 'Hors ligne' ?></span></td>
 				<td><?= $value->name ?></td>
 				<td>
-					<a href="<?= Router::url('admin/pages/edit/'.$value->id) ?>">Editer</a>
-					<a onclick="return confirm('Voulez-vous vraiment supprimer ce contenu ?');" href="<?= Router::url('admin/pages/delete/'.$value->id) ?>">Supprimer</a>
+					<p><button><a href="<?= Router::url('admin/pages/edit/'.$value->id) ?>">Editer</a></button></p>
+					<p><button><a onclick="return confirm('Voulez-vous vraiment supprimer ce contenu ?');" href="<?= Router::url('admin/pages/delete/'.$value->id) ?>">Supprimer</a></button></p>
 				</td>
 			</tr>
 		<?php } ?>

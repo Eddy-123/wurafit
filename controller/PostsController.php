@@ -6,16 +6,17 @@ class PostsController extends Controller
 {
 	
 	function index(){
-		$perPage = 10;
+		$perPage = 5;
 		$this->loadModel('Post');
 		$conditions = array('online' => 1, 'type' => 'post');
 		$d['posts'] = $this->Post->find(array(
 			'conditions' => $conditions,
 			'limit' => ($perPage * ($this->request->page-1)).', '.$perPage,
-			'order by' => 'created DESC'
+			'order by' => 'created DESC, id DESC'
 		));
 		$d['total'] = $this->Post->findCount($conditions);
 		$d['page'] = ceil($d['total'] / $perPage);
+		$d['footer_relative'] = true;
 		$this->set($d);
 	}
 
@@ -48,7 +49,8 @@ class PostsController extends Controller
 		$d['posts'] = $this->Post->find(array(
 			'fields' => 'id, name, online',
 			'conditions' => $conditions,
-			'limit' => ($perPage * ($this->request->page-1)).', '.$perPage
+			'limit' => ($perPage * ($this->request->page-1)).', '.$perPage,
+			'order by' => 'created DESC, id DESC'
 		));
 		$d['total'] = $this->Post->findCount($conditions);
 		$d['page'] = ceil($d['total'] / $perPage);
@@ -91,7 +93,7 @@ class PostsController extends Controller
 		$this->loadModel('Post');
 		$this->Post->delete($id);
 		$this->Session->setFlash('Le contenu a bien été supprimé');
-		$this->redirect('admin/pages/index');
+		$this->redirect('admin/posts/index');
 	}
 
 	function admin_tinymce(){
